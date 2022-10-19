@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1, minimum-scale=1, width=device-width">
+
+    <link rel="shortcut icon" href="{{ url_for('webui.static', filename='image/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('webui.static', filename='css/error.css') }}">
+
+    <title>{{title_error}}</title>
+  </head>
+  <body>
+    <header>
+      <a href="/">
+        <span id=logo aria-label=Google></span>
+      </a>
+      <p>
+        <strong>{{code_error}}</strong> <ins>Isso é um erro.</ins>
+      </p>
+    </header>
+    <main>
+      <p>
+        {{content_error}} <ins>Isso é tudo que sabemos.</ins>
+      </p>
+    </main>
+  </body>
+</html>
+
+
