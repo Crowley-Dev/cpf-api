@@ -3,7 +3,6 @@ API Rest - Flask
 
 - **próxima atualização**: *××/××/××××*
 - **mudanças na próxima atualização**:
-   - *sistema de autenticação de token*
    - *cada token terá um tempo de uso (7d, 15d, 30d)*
    - *sistema de blacklist, caso o usuário faça muitas requisição em pouco tempo*
 
