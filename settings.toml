@@ -3,6 +3,7 @@ SECRET_KEY = "f3bbd1b0"
 SQLALCHEMY_TRACK_MODIFICATIONS = false
 JSONIFY_PRETTYPRINT_REGULAR = true
 JSON_AS_ASCII = false
+JSON_SORT_KEYS = false
 SQLALCHEMY_DATABASE_URI = "sqlite:///../src/model/databases/dados.db"
 SQLALCHEMY_BINDS = '''@json {
     "users": "sqlite:///../src/model/databases/users.db"
