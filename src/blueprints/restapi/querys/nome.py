@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 
-from flask import jsonify, request
+from flask import (
+  jsonify, request, make_response
+)
+
 from sqlalchemy import func
 
 from unicodedata import normalize
@@ -15,18 +18,22 @@ class Query:
   def response(self):
     validate = self.data.replace(" ", "").isalpha()
     if not validate:
-      return jsonify(
-        status=404,
-        data="Isso não é um nome."
+      return make_response(
+        jsonify(
+          status=400,
+          data="Isso não é um nome."
+        ), 400
       )
 
     query = self.nome(self.data)
     if query is not None:
       return query
 
-    return jsonify(
-      status=204,
-      data="Não encontrado na nossa base de dados."
+    return make_response(
+      jsonify(
+        status=404,
+        data="Não encontrado na nossa base de dados."
+      ), 404
     )
 
 
@@ -39,10 +46,12 @@ class Query:
     )
 
     if pessoas.first() is not None:
-      return jsonify(
-        status = 200,
-        data = [
-          pessoa.to_dict()
-          for pessoa in pessoas
-        ],
+      return make_response(
+        jsonify(
+          status = 200,
+          data = [
+            pessoa.to_dict()
+            for pessoa in pessoas
+          ],
+        ), 200
       )

@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
-from flask import jsonify, request
+from flask import (
+  jsonify, request, make_response
+)
 
 from validate_docbr import CPF
 
@@ -17,25 +19,31 @@ class Query:
   def response(self):
     validate = lambda data: CPF().validate(data)
     if not validate(self.data):
-      return jsonify(
-        status=404,
-        data="CPF inexistente."
+      return make_response(
+        jsonify(
+          status=400,
+          data="CPF inexistente."
+        ), 400
       )
 
     query = self.cpf(self.data)
     if query is not None:
       return query
 
-    return jsonify(
-      status=204,
-      data="Não encontrado na nossa base de dados."
+    return make_response(
+      jsonify(
+        status=404,
+        data="Não encontrado na nossa base de dados."
+      ), 404
     )
 
 
   def cpf(self, cpf):
     response = Pessoas.query.filter_by(cpf=cpf).first()
     if response is not None:
-      return jsonify(
-        status=200,
-        data=response.to_dict(),
+      return make_response(
+        jsonify(
+          status=200,
+          data=response.to_dict(),
+        ), 200
       )

@@ -3,8 +3,9 @@
 from datetime import date
 from src.model import Clientes
 
-from flask import jsonify
-from flask import request
+from flask import (
+  jsonify, request, make_response
+)
 
 
 def verify_user(token: str):
@@ -13,9 +14,11 @@ def verify_user(token: str):
   if not user:
     return {
       "isvalid": False,
-      "response": jsonify(
-        status=403,
-        data="Token inexistente."
+      "response": make_response(
+        jsonify(
+          status=403,
+          data="Token inexistente."
+        ), 403
       )
     }
 
@@ -24,9 +27,11 @@ def verify_user(token: str):
   if expired.days > int(user.plano):
     return {
       "isvalid": False,
-      "response": jsonify(
-        status=401,
-        data="Token expirou."
+      "response": make_response(
+        jsonify(
+          status=401,
+          data="Token expirou."
+        ), 401
       )
     }
 
@@ -47,9 +52,11 @@ def validate_query(token: str):
   if not [x for x in data if x in ("cpf", "nome")]:
     return {
       "isvalid": False,
-      "response": jsonify(
-        status=400,
-        data="Informação a ser consultada não foi definida."
+      "response": make_response(
+        jsonify(
+          status=400,
+          data="Informação a ser consultada não foi definida."
+        ), 400
       )
     }
 
